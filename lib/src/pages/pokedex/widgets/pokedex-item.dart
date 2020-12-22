@@ -6,15 +6,23 @@ import '../../../models/pokemon.dart';
 // Create container for the sake of padding/organization
 // EdgeInsets.all(x) is padding for all sides
 // Column child widget automatically positions widgets from top to bottom
-Widget pokemonContainer(Pokemon pokemon) {
-  return Container(
+Widget pokemonContainer(BuildContext context, Pokemon pokemon) {
+  return new InkWell(
+    borderRadius: BorderRadius.circular(13.0),
+    child: Container(
       padding: const EdgeInsets.all(10),
-      color: Colors.grey[850],
+      decoration: BoxDecoration(
+          color: Colors.grey[850], borderRadius: BorderRadius.circular(13.0)),
       child: Column(children: <Widget>[
         // Call the created widgets here, pass Pokemon object info respectively
         pokemonSprite(pokemon.sprite),
         pokemonLabel(pokemon.name)
-      ]));
+      ]),
+    ),
+    onTap: () {
+      Navigator.pushNamed(context, '/pokemon');
+    },
+  );
 }
 
 // Widget for the sprite itself, lower scale = larger image

@@ -15,7 +15,7 @@ class Pokedex extends StatelessWidget {
     // Start at 1 since bulbsaur's id in PokeAPI is 1
     // Temporary loop for the sake of testing
     for (int i = 1; i < 12; i++)
-      allPokemon.add(pokemonContainer(Pokemon('Pokemon', i)));
+      allPokemon.add(pokemonContainer(context, Pokemon('Pokemon', i)));
 
     return allPokemon;
   }
@@ -23,12 +23,13 @@ class Pokedex extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(this.title)),
+        backgroundColor: Colors.grey[900],
         body: GridView.count(
           // primary: false -> makes the amount you can scroll relative to the content in the grid
           primary: false,
           padding: const EdgeInsets.all(8),
-          crossAxisSpacing: 4,
-          mainAxisSpacing: 4,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
           crossAxisCount: 2,
           // Call getPokemon for the list of widgets here
           children: getPokemon(context),
