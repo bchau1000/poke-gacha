@@ -15,7 +15,7 @@ class Pokedex extends StatelessWidget {
     // Start at 1 since bulbsaur's id in PokeAPI is 1
     // Temporary loop for the sake of testing
     for (int i = 1; i < 12; i++)
-      allPokemon.add(pokemonContainer(context, Pokemon('Pokemon', i)));
+      allPokemon.add(pokemonGridItem(context, Pokemon('Pokemon', i)));
 
     return allPokemon;
   }
