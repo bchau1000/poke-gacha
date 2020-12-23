@@ -4,9 +4,9 @@ import '../../models/pokemon.dart';
 
 // Bring all the widgets together here to create a grid view widget
 class Pokedex extends StatelessWidget {
-  // No clue what the two lines below do, assuming it's just weird syntax for a constructor
-  Pokedex({Key key, this.title}) : super(key: key);
+  // Constructor for the widget class
   final String title;
+  Pokedex({Key key, @required this.title}) : super(key: key);
 
   // Create a list of pokemon container widgets to populate the grid
   List<Widget> getPokemon(BuildContext context) {
@@ -14,8 +14,8 @@ class Pokedex extends StatelessWidget {
 
     // Start at 1 since bulbsaur's id in PokeAPI is 1
     // Temporary loop for the sake of testing
-    for (int i = 1; i < 12; i++)
-      allPokemon.add(pokemonGridItem(context, Pokemon('Pokemon', i)));
+    for (int i = 1; i < 13; i++)
+      allPokemon.add(pokemonGridItem(context, Pokemon(i, 'Pokemon')));
 
     return allPokemon;
   }
