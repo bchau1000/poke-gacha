@@ -29,10 +29,10 @@
 .packages
 .pub-cache/
 .pub/
-/build/
+app/build/
 
 # Web related
-lib/generated_plugin_registrant.dart
+app/lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -40,4 +40,6 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-lib/src/assets/
+
+# Assets folder
+app/lib/src/assets
