@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'info-tabs.dart';
+import '../../pokedex/widgets/pokedex-item.dart';
 
 Widget pokemonInfoContainer(BuildContext context, Pokemon pokemon) {
   return Flexible(
-      flex: 6,
+      flex: 9,
       child: Container(
           decoration: BoxDecoration(color: Colors.transparent),
           child: Column(children: <Widget>[
-            tabBar(context),
+            tabBar(context, pokemon),
           ])));
 }
 
@@ -42,9 +44,7 @@ Widget pokemonTypesContainer() {
               ])));
 }
 
-Widget pokemonTypes() {}
-
-Widget tabBar(BuildContext context) {
+Widget tabBar(BuildContext context, Pokemon pokemon) {
   return Flexible(
       fit: FlexFit.tight,
       flex: 10,
@@ -76,13 +76,13 @@ Widget tabBar(BuildContext context) {
                         ],
                       ),
                       body: TabBarView(children: <Widget>[
-                        Container(
-                            color: Colors.grey[850], child: tabLabel('About')),
+                        pokemonStatsContainer(pokemon),
                         Container(
                             color: Colors.grey[850],
                             child: tabLabel('Evolutions')),
                         Container(
-                            color: Colors.grey[850], child: tabLabel('Stats')),
+                            color: Colors.grey[850],
+                            child: tabLabel('Abilities')),
                       ]))))));
 }
 
