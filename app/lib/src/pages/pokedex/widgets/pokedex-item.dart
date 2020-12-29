@@ -3,6 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
 import '../../pokemon-page/pokemon-page.dart';
 
+/*
+Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PokemonPage(pokemon: pokemon)));
+*/
+
 // Container widget for the Pokemon grid item
 // Create container for the sake of padding/organization
 // EdgeInsets.all(x) is padding for all sides
@@ -16,12 +23,7 @@ Widget pokemonGridItem(BuildContext context, Pokemon pokemon) {
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(13.0),
           ),
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PokemonPage(pokemon: pokemon)));
-          }),
+          onTap: () {}),
     ),
   ]);
 }

@@ -29,10 +29,9 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Pokedex(title: 'Pokédex', service: new PokeDB()),
+        home: Pokedex(title: 'Pokédex'),
         routes: {
-          '/pokedex': (context) =>
-              Pokedex(title: 'Pokédex', service: new PokeDB()),
+          '/pokedex': (context) => Pokedex(title: 'Pokédex'),
           '/pokemon': (context) => PokemonPage()
         });
   }

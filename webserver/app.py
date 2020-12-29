@@ -7,8 +7,8 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
-app.config['MONGO_DBNAME'] = 'PokeDB'
-app.config['MONGO_URI'] = 'mongodb+srv://m001-student:OiHx3bVFmlOyMo5T@cluster0.xbjek.mongodb.net/PokeDB?retryWrites=true&w=majority'
+app.config['MONGO_DBNAME'] = 'PokeTable'
+app.config['MONGO_URI'] = 'mongodb+srv://m001-student:OiHx3bVFmlOyMo5T@cluster0.xbjek.mongodb.net/PokeTable?retryWrites=true&w=majority'
 
 mongo = PyMongo(app)
 
@@ -41,10 +41,10 @@ def get_all_pokemon():
       ]):
         output.append({'pokeName':document['pokeName'],'id':document['_id']})
   else: #return all pokemon
-    output = [{'pokeName':document['pokeName'],'id':document['_id']} for document in pokeData.find()]
+    output = [{'name':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find()]
 
   if output:
-    return jsonify({'result' : output})
+    return jsonify(output)
   else:
     return "{} Not Found".format(query)
 
@@ -88,8 +88,6 @@ def get_evo_chain_by_name(pokeNameInput):
     return jsonify({'result' : output})
   else:
     return "{} Not Found".format(pokeNameInput)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)

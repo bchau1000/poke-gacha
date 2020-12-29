@@ -1,31 +1,47 @@
 import 'package:flutter/material.dart';
 import 'widgets/pokedex-item.dart';
+import '../../bloc/pokedex-bloc.dart';
 import '../../models/pokemon.dart';
-import '../../services/database/pokedb.dart';
 
 // Bring all the widgets together here to create a grid view widget
-class Pokedex extends StatelessWidget {
+class Pokedex extends StatefulWidget {
   // Constructor for the widget class
   final String title;
-  final PokeDB service;
-  Pokedex({Key key, @required this.title, @required this.service})
-      : super(key: key);
 
-  // Create a list of pokemon container widgets to populate the grid
-  List<Widget> getPokemon(BuildContext context) {
-    print(service.testGet());
-    List<Widget> allPokemon = [];
-    // Start at 1 since bulbsaur's id in PokeAPI is 1
-    // Temporary loop for the sake of testing
-    for (int i = 1; i < 13; i++)
-      allPokemon.add(pokemonGridItem(context, Pokemon(i, 'Pokemon')));
+  Pokedex({Key key, @required this.title}) : super(key: key);
 
-    return allPokemon;
+  @override
+  PokedexState createState() => PokedexState();
+}
+
+class PokedexState extends State<Pokedex> {
+  List<Widget> getPokemon(BuildContext context, List<Pokemon> allPokemon) {
+    List<Widget> pokemonItems = [];
+
+    for (int i = 0; i < allPokemon.length; i++)
+      pokemonItems.add(pokemonGridItem(context, allPokemon[i]));
+    print(pokemonItems);
+    return pokemonItems;
   }
 
+  @override
   Widget build(BuildContext context) {
+    pokedexBloc.fetchPokemon();
+    return StreamBuilder(
+        stream: pokedexBloc.pokemon,
+        builder: (context, AsyncSnapshot<List<Pokemon>> snapshot) {
+          if (snapshot.hasData) {
+            return buildPokedex(snapshot.data);
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          return Center(child: CircularProgressIndicator());
+        });
+  }
+
+  Widget buildPokedex(List<Pokemon> allPokemon) {
     return Scaffold(
-        appBar: AppBar(title: Text(this.title)),
+        appBar: AppBar(title: Text(widget.title)),
         backgroundColor: Colors.grey[900],
         body: GridView.count(
           // primary: false -> makes the amount you can scroll relative to the content in the grid
@@ -35,7 +51,7 @@ class Pokedex extends StatelessWidget {
           mainAxisSpacing: 8,
           crossAxisCount: 2,
           // Call getPokemon for the list of widgets here
-          children: getPokemon(context),
+          children: getPokemon(context, allPokemon),
         ));
   }
 }
