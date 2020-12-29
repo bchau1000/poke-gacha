@@ -29,7 +29,6 @@ class PokedexState extends State<Pokedex> {
         stream: pokedexBloc.pokemon,
         builder: (context, AsyncSnapshot<List<Pokemon>> snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data);
             return buildPokedex(snapshot.data);
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
@@ -48,7 +47,7 @@ class PokedexState extends State<Pokedex> {
           padding: const EdgeInsets.all(8),
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
-          crossAxisCount: 2,
+          crossAxisCount: 3,
           // Call getPokemon for the list of widgets here
           children: getPokemon(context, allPokemon),
         ));

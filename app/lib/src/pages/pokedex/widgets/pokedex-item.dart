@@ -3,13 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
 import '../../pokemon-page/pokemon-page.dart';
 
-/*
-Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PokemonPage(pokemon: pokemon)));
-*/
-
 // Container widget for the Pokemon grid item
 // Create container for the sake of padding/organization
 // EdgeInsets.all(x) is padding for all sides
@@ -40,7 +33,7 @@ Widget pokemonContainer(Pokemon pokemon) {
     child: Column(children: <Widget>[
       // Call the created widgets here, pass Pokemon object info respectively
       pokemonImage(pokemon.art),
-      pokemonLabel(pokemon.name)
+      pokemonLabel(pokemon.nameLabel)
     ]),
   );
 }
@@ -60,8 +53,8 @@ Widget pokemonLabel(String label) {
       child: Center(
         child: Text(
           label,
-          style: GoogleFonts.rubik(
-              textStyle: TextStyle(fontSize: 18, color: Colors.white)),
+          style: GoogleFonts.openSans(
+              textStyle: TextStyle(fontSize: 17, color: Colors.white)),
         ),
       ));
 }

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
 
-Widget pokemonHeaderContainer(BuildContext context, Pokemon pokemon) {
+Widget pokemonHeaderContainer(
+    BuildContext context, Pokemon pokemon, List<dynamic> types) {
   return new Flexible(
       flex: 9,
       child: Stack(children: <Widget>[
         pokemonPlatform(),
         Column(children: [
-          pokemonLabelContainer(pokemon.id),
-          pokemonTypesContainer(),
+          pokemonLabelContainer(pokemon.idLabel, pokemon.nameLabel),
+          pokemonTypesContainer(types),
           pokemonImageContainer(pokemon.art)
         ]),
       ]));
@@ -17,7 +18,7 @@ Widget pokemonHeaderContainer(BuildContext context, Pokemon pokemon) {
 
 Widget pokemonImageContainer(String art) {
   return Flexible(
-      flex: 10,
+      flex: 8,
       child: Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -26,11 +27,7 @@ Widget pokemonImageContainer(String art) {
                       image: AssetImage(art), fit: BoxFit.fitHeight)))));
 }
 
-Widget pokemonLabelContainer(String id) {
-  if (id.length == 2)
-    id = '0' + id;
-  else if (id.length == 1) id = '00' + id;
-
+Widget pokemonLabelContainer(String id, String name) {
   return Flexible(
       flex: 2,
       child: Row(
@@ -39,7 +36,7 @@ Widget pokemonLabelContainer(String id) {
           children: <Widget>[
             Container(
                 padding: EdgeInsets.only(left: 8),
-                child: Text('Bulbasaur',
+                child: Text(name,
                     style: GoogleFonts.openSans(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -54,15 +51,17 @@ Widget pokemonLabelContainer(String id) {
           ]));
 }
 
-Widget pokemonTypesContainer() {
+Widget pokemonTypesContainer(List<dynamic> types) {
+  List<Widget> typeWidgets = [];
+
+  for (int i = 0; i < types.length; i++)
+    typeWidgets.add(pokemonType(types[i].toString(), Colors.grey[850]));
+
   return Flexible(
       flex: 1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          pokemonType('Grass', Colors.green[300]),
-          pokemonType('Poison', Colors.purple[500])
-        ],
+        children: typeWidgets,
       ));
 }
 

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
+import '../../../models/pokemon-info.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-Widget pokemonStatsContainer(Pokemon pokemon) {
+Widget pokemonStatsContainer(Pokemon pokemon, PokemonInfo info) {
   return Column(
     children: <Widget>[
       Flexible(flex: 2, child: pokemonPhysStats()),
-      Flexible(flex: 7, child: pokemonStatBars())
+      Flexible(flex: 7, child: pokemonStatBars(info))
     ],
   );
 }
@@ -43,16 +44,16 @@ Widget statContainer(String value, String label) {
   ]);
 }
 
-Widget pokemonStatBars() {
+Widget pokemonStatBars(PokemonInfo info) {
   return Container(
       margin: EdgeInsets.all(15),
       child: Column(children: <Widget>[
-        statBar('HP', 50),
-        statBar('ATK', 25),
-        statBar('DEF', 70),
-        statBar('SATK', 200),
-        statBar('SDEF', 30),
-        statBar('SPD', 75),
+        statBar('HP', info.hp),
+        statBar('ATK', info.att),
+        statBar('DEF', info.def),
+        statBar('SATK', info.satk),
+        statBar('SDEF', info.sdef),
+        statBar('SPD', info.spd),
       ]));
 }
 
@@ -65,6 +66,8 @@ Widget statBar(String stat, int value) {
   } else {
     textValue = value.toString();
   }
+
+  double percent = value / 255;
 
   return Container(
       margin: EdgeInsets.only(top: 5),
@@ -92,7 +95,7 @@ Widget statBar(String stat, int value) {
               height: 25,
               child: LinearPercentIndicator(
                 lineHeight: 12.0,
-                percent: 0.5,
+                percent: percent,
                 progressColor: Colors.green,
                 backgroundColor: Colors.grey[900],
               )),

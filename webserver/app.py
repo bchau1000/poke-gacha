@@ -94,13 +94,16 @@ def get_evo_chain_by_name(pokeNameInput):
     return "{} Not Found".format(pokeNameInput)
 
 
-@app.route('/api/stat-types/<int:poke_id>', methods=['GET'])
+@app.route('/test')
+def test():
+    return '  {"attack": 49, "defense": 49, "hp": 45, "special-attack": 49, "special-defense": 49, "speed": 45, "types": ["grass", "poison"]}';
+
+@app.route('/api/stat-type/<int:poke_id>', methods=['GET'])
 def get_stats(poke_id):
-  output = []
   pokeData = mongo.db.pokemonData
   pokeDoc = pokeData.find_one({"_id":poke_id})
   stat = pokeDoc["stats"]
-  output.append({
+  output = {
       "hp":stat["hp"],
       "attack" :stat["attack"],
       "defense" :stat["defense"],
@@ -108,9 +111,9 @@ def get_stats(poke_id):
       "special-defense" :stat["defense"],
       "speed" :stat["speed"],
       "types": [type_ for type_ in pokeDoc["types"]]
-    })
+    }
   if output:
-    return jsonify({'result' : output})
+    return jsonify(output)
   else:
     return "Pokemon ID: {} Not Found".format(poke_id)
 

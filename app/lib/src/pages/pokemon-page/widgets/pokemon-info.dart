@@ -3,15 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'info-tabs.dart';
-import '../../pokedex/widgets/pokedex-item.dart';
+import '../../../models/pokemon-info.dart';
 
-Widget pokemonInfoContainer(BuildContext context, Pokemon pokemon) {
+Widget pokemonInfoContainer(
+    BuildContext context, Pokemon pokemon, PokemonInfo info) {
   return Flexible(
       flex: 9,
       child: Container(
           decoration: BoxDecoration(color: Colors.transparent),
           child: Column(children: <Widget>[
-            tabBar(context, pokemon),
+            tabBar(context, pokemon, info),
           ])));
 }
 
@@ -44,7 +45,7 @@ Widget pokemonTypesContainer() {
               ])));
 }
 
-Widget tabBar(BuildContext context, Pokemon pokemon) {
+Widget tabBar(BuildContext context, Pokemon pokemon, PokemonInfo info) {
   return Flexible(
       fit: FlexFit.tight,
       flex: 10,
@@ -66,7 +67,7 @@ Widget tabBar(BuildContext context, Pokemon pokemon) {
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicator: new BubbleTabIndicator(
                           indicatorHeight: 40,
-                          indicatorColor: Colors.redAccent,
+                          indicatorColor: Colors.grey[900],
                           tabBarIndicatorSize: TabBarIndicatorSize.tab,
                         ),
                         tabs: [
@@ -76,7 +77,7 @@ Widget tabBar(BuildContext context, Pokemon pokemon) {
                         ],
                       ),
                       body: TabBarView(children: <Widget>[
-                        pokemonStatsContainer(pokemon),
+                        pokemonStatsContainer(pokemon, info),
                         Container(
                             color: Colors.grey[850],
                             child: tabLabel('Evolutions')),
