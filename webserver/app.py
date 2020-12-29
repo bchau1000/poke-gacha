@@ -6,7 +6,7 @@ from flask import request
 from flask_pymongo import PyMongo
 app = Flask(__name__)
 
-app.config['MONGO_DBNAME'] = 'PokeTable'
+app.config['MONGO_DBNAME'] = 'PokemonTable'
 app.config['MONGO_URI'] = 'mongodb+srv://m001-student:OiHx3bVFmlOyMo5T@cluster0.xbjek.mongodb.net/PokemonTable?retryWrites=true&w=majority'
 
 
@@ -43,7 +43,7 @@ def get_all_pokemon():
       ]):
         output.append({'pokeName':document['pokeName'],'id':document['_id']})
   elif limit or offset:
-   output = [{'pokeName':document['pokeName'],'id':document['_id']} for document in pokeData.find().limit(int(limit)).skip(int(offset))]
+   output = [{'pokeName':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find().limit(int(limit)).skip(int(offset))]
   else: #return all pokemon
     output = [{'name':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find()]
 

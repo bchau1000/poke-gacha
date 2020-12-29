@@ -8,7 +8,7 @@ Widget pokemonHeaderContainer(BuildContext context, Pokemon pokemon) {
       child: Stack(children: <Widget>[
         pokemonPlatform(),
         Column(children: [
-          pokemonLabelContainer(),
+          pokemonLabelContainer(pokemon.id),
           pokemonTypesContainer(),
           pokemonImageContainer(pokemon.art)
         ]),
@@ -26,7 +26,11 @@ Widget pokemonImageContainer(String art) {
                       image: AssetImage(art), fit: BoxFit.fitHeight)))));
 }
 
-Widget pokemonLabelContainer() {
+Widget pokemonLabelContainer(String id) {
+  if (id.length == 2)
+    id = '0' + id;
+  else if (id.length == 1) id = '00' + id;
+
   return Flexible(
       flex: 2,
       child: Row(
@@ -42,7 +46,7 @@ Widget pokemonLabelContainer() {
                         color: Colors.white))),
             Container(
                 padding: EdgeInsets.only(right: 8, bottom: 3),
-                child: Text('#001',
+                child: Text('#' + id,
                     style: GoogleFonts.openSans(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

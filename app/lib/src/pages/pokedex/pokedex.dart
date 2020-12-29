@@ -17,10 +17,8 @@ class Pokedex extends StatefulWidget {
 class PokedexState extends State<Pokedex> {
   List<Widget> getPokemon(BuildContext context, List<Pokemon> allPokemon) {
     List<Widget> pokemonItems = [];
-
     for (int i = 0; i < allPokemon.length; i++)
       pokemonItems.add(pokemonGridItem(context, allPokemon[i]));
-    print(pokemonItems);
     return pokemonItems;
   }
 
@@ -31,6 +29,7 @@ class PokedexState extends State<Pokedex> {
         stream: pokedexBloc.pokemon,
         builder: (context, AsyncSnapshot<List<Pokemon>> snapshot) {
           if (snapshot.hasData) {
+            print(snapshot.data);
             return buildPokedex(snapshot.data);
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());

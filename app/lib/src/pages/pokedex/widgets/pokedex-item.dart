@@ -23,7 +23,12 @@ Widget pokemonGridItem(BuildContext context, Pokemon pokemon) {
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(13.0),
           ),
-          onTap: () {}),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PokemonPage(pokemon: pokemon)));
+          }),
     ),
   ]);
 }
