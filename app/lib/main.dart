@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'src/pages/pokedex/pokedex.dart';
 import 'src/pages/pokemon-page/pokemon-page.dart';
+import './src/services/database/pokedb.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Pokedex(title: 'Pokédex'),
+        home: Pokedex(title: 'Pokédex', service: new PokeDB()),
         routes: {
-          '/pokedex': (context) => Pokedex(title: 'Pokédex'),
+          '/pokedex': (context) =>
+              Pokedex(title: 'Pokédex', service: new PokeDB()),
           '/pokemon': (context) => PokemonPage()
         });
   }
