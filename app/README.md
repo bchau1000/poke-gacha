@@ -1,3 +1,0 @@
-# Pokégacha
-
-A Flutter project.
