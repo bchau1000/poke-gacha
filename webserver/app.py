@@ -117,5 +117,22 @@ def get_stats(poke_id):
   else:
     return "Pokemon ID: {} Not Found".format(poke_id)
 
+@app.route('/api/stat-type/<string:type_name>', methods=['GET'])
+def get_type(type_name):
+  limit =  request.args.get('limit') if request.args.get('limit') != None else 0
+  offset = request.args.get('offset') if request.args.get('offset') != None else 0
+  pokeData = mongo.db.pokemonData
+
+  output = [{'pokeName':document['pokeName'],
+              'id':document['_id']} 
+              for document in 
+              pokeData.find({"types":type_name}).limit(int(limit)).skip(int(offset))]
+    
+  if output:
+    return jsonify(output)
+  else:
+    return "Type: \"{}\" Not Found".format(type_name)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
