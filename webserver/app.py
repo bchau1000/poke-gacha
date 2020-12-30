@@ -27,10 +27,9 @@ def get_all_pokemon():
     for document in pokeData.aggregate([
       {
       "$search": {
-            "text": {
+            "autocomplete": {
                     "query": query,
-                    "path": "pokeName",
-                    "fuzzy": {"maxEdits" : 1}#this allows only one character to be off
+                    "path": "pokeName"
                     }
             }
       },
@@ -50,7 +49,7 @@ def get_all_pokemon():
   if output:
     return jsonify(output)
   else:
-    return "{} Not Found".format(query)
+    return "\"{}\" not Found".format(query)
 
 
 @app.route('/api/evolution/<int:evo_id>', methods=['GET'])
