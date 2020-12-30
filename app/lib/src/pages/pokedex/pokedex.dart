@@ -15,21 +15,18 @@ class Pokedex extends StatefulWidget {
 }
 
 class PokedexState extends State<Pokedex> {
-  List<Widget> getPokemon(BuildContext context, List<Pokemon> allPokemon) {
-    List<Widget> pokemonItems = [];
-    for (int i = 0; i < allPokemon.length; i++)
-      pokemonItems.add(pokemonGridItem(context, allPokemon[i]));
-    return pokemonItems;
-  }
+  List<Pokemon> allPokemon = [];
 
   @override
   Widget build(BuildContext context) {
-    pokedexBloc.fetchPokemon();
+    pokedexBloc.fetchPokemon('', allPokemon.length);
+
     return StreamBuilder(
         stream: pokedexBloc.pokemon,
         builder: (context, AsyncSnapshot<List<Pokemon>> snapshot) {
           if (snapshot.hasData) {
-            return buildPokedex(snapshot.data);
+            allPokemon = snapshot.data;
+            return buildPokedex();
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }
@@ -37,19 +34,33 @@ class PokedexState extends State<Pokedex> {
         });
   }
 
-  Widget buildPokedex(List<Pokemon> allPokemon) {
+  Widget buildPokedex() {
     return Scaffold(
         appBar: AppBar(title: Text(widget.title)),
         backgroundColor: Colors.grey[900],
-        body: GridView.count(
-          // primary: false -> makes the amount you can scroll relative to the content in the grid
-          primary: false,
-          padding: const EdgeInsets.all(8),
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          crossAxisCount: 3,
-          // Call getPokemon for the list of widgets here
-          children: getPokemon(context, allPokemon),
+        body: NotificationListener<ScrollNotification>(
+          onNotification: (scrollNotification) {
+            if (scrollNotification.metrics.pixels ==
+                scrollNotification.metrics.maxScrollExtent) {
+              setState(() {});
+            }
+            return true;
+          },
+          child: GridView.builder(
+            // primary: false -> makes the amount you can scroll relative to the content in the grid
+            primary: false,
+            itemCount: allPokemon.length,
+            padding: const EdgeInsets.all(8),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              crossAxisCount: 2,
+            ),
+            // Call getPokemon for the list of widgets here
+            itemBuilder: (BuildContext context, int index) {
+              return pokemonGridItem(context, allPokemon[index]);
+            },
+          ),
         ));
   }
 }

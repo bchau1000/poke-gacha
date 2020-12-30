@@ -8,8 +8,8 @@ class PokedexBloc {
 
   Stream<List<Pokemon>> get pokemon => pokemonFetcher.stream;
 
-  fetchPokemon() async {
-    final resp = await service.fetchPokemon();
+  fetchPokemon(String query, int offset) async {
+    final resp = await service.fetchPokemon(query, offset);
     pokemonFetcher.sink.add(resp);
   }
 

@@ -70,7 +70,9 @@ Widget pokemonType(String type, Color color) {
       margin: EdgeInsets.only(left: 9),
       padding: EdgeInsets.only(top: 3, bottom: 3, right: 20, left: 20),
       decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.all(Radius.circular(30))),
+        color: color,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+      ),
       child: Text(type,
           style: GoogleFonts.openSans(
               fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white)));
@@ -82,7 +84,7 @@ Widget pokemonPlatform() {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          height: 60,
+          height: 50,
           decoration: BoxDecoration(
               color: Colors.grey[850],
               borderRadius: BorderRadius.only(

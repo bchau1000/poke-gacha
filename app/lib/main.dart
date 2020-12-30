@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'src/pages/pokedex/pokedex.dart';
 import 'src/pages/pokemon-page/pokemon-page.dart';
-import './src/services/database/pokedb.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,6 +11,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
         title: 'Pokégacha',
         theme: ThemeData(

@@ -48,16 +48,16 @@ Widget pokemonStatBars(PokemonInfo info) {
   return Container(
       margin: EdgeInsets.all(15),
       child: Column(children: <Widget>[
-        statBar('HP', info.hp),
-        statBar('ATK', info.att),
-        statBar('DEF', info.def),
-        statBar('SATK', info.satk),
-        statBar('SDEF', info.sdef),
-        statBar('SPD', info.spd),
+        statBar('HP', info.hp, Colors.red[800]),
+        statBar('ATK', info.att, Colors.orange[800]),
+        statBar('DEF', info.def, Colors.yellow[800]),
+        statBar('SATK', info.satk, Colors.blue[800]),
+        statBar('SDEF', info.sdef, Colors.blue[400]),
+        statBar('SPD', info.spd, Colors.green[800]),
       ]));
 }
 
-Widget statBar(String stat, int value) {
+Widget statBar(String stat, int value, Color color) {
   String textValue = '';
   if (value < 10) {
     textValue = '00' + value.toString();
@@ -96,7 +96,7 @@ Widget statBar(String stat, int value) {
               child: LinearPercentIndicator(
                 lineHeight: 12.0,
                 percent: percent,
-                progressColor: Colors.green,
+                progressColor: color,
                 backgroundColor: Colors.grey[900],
               )),
         )
