@@ -29,11 +29,19 @@ Widget pokemonGridItem(BuildContext context, Pokemon pokemon) {
 Widget pokemonContainer(Pokemon pokemon) {
   return new Container(
     decoration: BoxDecoration(
-        color: Colors.grey[850], borderRadius: BorderRadius.circular(13.0)),
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(13.0),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(2, 3))
+        ]),
     child: Column(children: <Widget>[
       // Call the created widgets here, pass Pokemon object info respectively
+      pokemonLabel(pokemon.nameLabel, pokemon.idLabel),
       pokemonImage(pokemon.art),
-      pokemonLabel(pokemon.nameLabel)
     ]),
   );
 }
@@ -47,14 +55,35 @@ Widget pokemonImage(String art) {
                   image: AssetImage(art), fit: BoxFit.fitHeight))));
 }
 
-Widget pokemonLabel(String label) {
+Widget pokemonLabel(String label, String id) {
   return Flexible(
       flex: 1,
-      child: Center(
-        child: Text(
-          label,
-          style: GoogleFonts.openSans(
-              textStyle: TextStyle(fontSize: 17, color: Colors.white)),
-        ),
-      ));
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Flexible(
+            flex: 5,
+            child: Container(
+              padding: EdgeInsets.only(left: 10, top: 8),
+              child: Text(
+                label,
+                style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              ),
+            )),
+        Flexible(
+            flex: 2,
+            child: Container(
+              padding: EdgeInsets.only(right: 10, top: 8),
+              child: Text(
+                '#' + id,
+                style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              ),
+            ))
+      ]));
 }

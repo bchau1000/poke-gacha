@@ -71,19 +71,18 @@ Widget tabBar(BuildContext context, Pokemon pokemon, PokemonInfo info) {
                           tabBarIndicatorSize: TabBarIndicatorSize.tab,
                         ),
                         tabs: [
+                          Tab(child: tabLabel('About')),
                           Tab(child: tabLabel('Stats')),
                           Tab(child: tabLabel('Evolutions')),
-                          Tab(child: tabLabel('Abilities')),
                         ],
                       ),
                       body: TabBarView(children: <Widget>[
+                        Container(
+                            color: Colors.grey[850], child: tabLabel('About')),
                         pokemonStatsContainer(pokemon, info),
                         Container(
                             color: Colors.grey[850],
                             child: tabLabel('Evolutions')),
-                        Container(
-                            color: Colors.grey[850],
-                            child: tabLabel('Abilities')),
                       ]))))));
 }
 

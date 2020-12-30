@@ -17,7 +17,10 @@ class Pokemon {
   get idLabel {
     if (this.id.length == 2)
       return '0' + this.id;
-    else if (this.id.length == 1) return '00' + this.id;
+    else if (this.id.length == 1)
+      return '00' + this.id;
+    else
+      return this.id;
   }
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
