@@ -50,6 +50,4 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - 'lib/src/assets/sprites/'
     - 'lib/src/assets/artwork/'
-    - 'lib/src/assets/logos/'

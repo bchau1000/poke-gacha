@@ -3,14 +3,6 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
-<<<<<<< HEAD
-from flask_pymongo import PyMongo
-
-app = Flask(__name__)
-
-app.config['MONGO_DBNAME'] = 'PokeDB'
-app.config['MONGO_URI'] = 'mongodb+srv://m001-student:OiHx3bVFmlOyMo5T@cluster0.xbjek.mongodb.net/PokeDB?retryWrites=true&w=majority'
-=======
 from werkzeug.serving import WSGIRequestHandler
 from flask_pymongo import PyMongo
 app = Flask(__name__)
@@ -18,7 +10,6 @@ app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'PokemonTable'
 app.config['MONGO_URI'] = 'mongodb+srv://m001-student:OiHx3bVFmlOyMo5T@cluster0.xbjek.mongodb.net/PokemonTable?retryWrites=true&w=majority'
 
->>>>>>> webserver
 
 mongo = PyMongo(app)
 
@@ -29,27 +20,17 @@ def default():
 @app.route('/api/pokedex', methods=['GET'])
 def get_all_pokemon():
   query = request.args.get('search')
-<<<<<<< HEAD
-=======
   limit =  request.args.get('limit') if request.args.get('limit') != None else 0
   offset = request.args.get('offset') if request.args.get('offset') != None else 0
->>>>>>> webserver
   pokeData = mongo.db.pokemonData
   output = []
   if query:
     for document in pokeData.aggregate([
       {
       "$search": {
-<<<<<<< HEAD
-            "text": {
-                    "query": query,
-                    "path": "pokeName",
-                    "fuzzy": {"maxEdits" : 1}#this allows only one character to be off
-=======
             "autocomplete": {
                     "query": query,
                     "path": "pokeName"
->>>>>>> webserver
                     }
             }
       },
@@ -60,16 +41,6 @@ def get_all_pokemon():
           }
       }
       ]):
-<<<<<<< HEAD
-        output.append({'pokeName':document['pokeName'],'id':document['_id']})
-  else: #return all pokemon
-    output = [{'pokeName':document['pokeName'],'id':document['_id']} for document in pokeData.find()]
-
-  if output:
-    return jsonify({'result' : output})
-  else:
-    return "{} Not Found".format(query)
-=======
         output.append({'pokeName':document['pokeName'],'id':str(document['_id'])})
   elif limit or offset:
    output = [{'pokeName':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find().limit(int(limit)).skip(int(offset))]
@@ -80,7 +51,6 @@ def get_all_pokemon():
     return jsonify(output)
   else:
     return "\"{}\" not Found".format(query)
->>>>>>> webserver
 
 
 @app.route('/api/evolution/<int:evo_id>', methods=['GET'])
@@ -123,9 +93,6 @@ def get_evo_chain_by_name(pokeNameInput):
   else:
     return "{} Not Found".format(pokeNameInput)
 
-<<<<<<< HEAD
-
-=======
 @app.route('/api/stat-type/<int:poke_id>', methods=['GET'])
 def get_stats(poke_id):
   pokeData = mongo.db.pokemonData
@@ -162,7 +129,6 @@ def get_type(type_name):
     return "Type: \"{}\" Not Found".format(type_name)
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
->>>>>>> webserver
 
 if __name__ == '__main__':
     app.run(debug=True)
