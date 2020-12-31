@@ -37,15 +37,40 @@ def get_all_pokemon():
       {
         "$project":{#each field in the collection that has 1 will be returned in the iterable
           "_id":1,
-          "pokeName":1
+          "pokeName":1,
+          'height':1,
+          'weight':1,
+          'rarity':1,
+          'desc':1
           }
       }
       ]):
+<<<<<<< HEAD
         output.append({'pokeName':document['pokeName'],'id':str(document['_id'])})
+=======
+        output.append({'pokeName':document['pokeName'],
+                        'id':document['_id'],
+                        'height':str(document['height']),
+                        'weight':str(document['weight']),
+                        'rarity':str(document['rarity']),
+                        'desc:':document['desc']
+        })
+>>>>>>> evoTab
   elif limit or offset:
-   output = [{'pokeName':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find().limit(int(limit)).skip(int(offset))]
+   output = [{'pokeName':document['pokeName'],
+                        'id':str(document['_id']),
+                        'height':str(document['height']),
+                        'weight':str(document['weight']),
+                        'rarity':str(document['rarity']),
+                        'desc:':document['desc']}
+                         for document in pokeData.find().limit(int(limit)).skip(int(offset))]
   else: #return all pokemon
-    output = [{'name':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find()]
+    output = [{'name':document['pokeName'], 'id':str(document['_id']),
+                        'height':str(document['height']),
+                        'weight':str(document['weight']),
+                        'rarity':str(document['rarity']),
+                        'desc:':document['desc']}
+                         for document in pokeData.find()]
 
   if output:
     return jsonify(output)
