@@ -7,20 +7,20 @@ import 'package:percent_indicator/percent_indicator.dart';
 Widget pokemonStatsContainer(Pokemon pokemon, PokemonInfo info) {
   return Column(
     children: <Widget>[
-      Flexible(flex: 2, child: pokemonPhysStats()),
+      Flexible(flex: 2, child: pokemonPhysStats(pokemon)),
       Flexible(flex: 7, child: pokemonStatBars(info))
     ],
   );
 }
 
-Widget pokemonPhysStats() {
+Widget pokemonPhysStats(Pokemon pokemon) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: <Widget>[
-      statContainer('3', 'Rarity'),
-      statContainer('6.9 KG', 'Weight'),
-      statContainer('0.7 M', 'Height'),
+      statContainer(pokemon.rarity, 'Rarity'),
+      statContainer(pokemon.weightLabel, 'Weight'),
+      statContainer(pokemon.heightLabel, 'Height'),
     ],
   );
 }
