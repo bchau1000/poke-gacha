@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../models/pokemon.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'info-tabs.dart';
+import 'stat-tabs.dart';
 import '../../../models/pokemon-info.dart';
 
 Widget pokemonInfoContainer(

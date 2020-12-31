@@ -3,6 +3,7 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
+from werkzeug.serving import WSGIRequestHandler
 from flask_pymongo import PyMongo
 app = Flask(__name__)
 
@@ -40,7 +41,7 @@ def get_all_pokemon():
           }
       }
       ]):
-        output.append({'pokeName':document['pokeName'],'id':document['_id']})
+        output.append({'pokeName':document['pokeName'],'id':str(document['_id'])})
   elif limit or offset:
    output = [{'pokeName':document['pokeName'],'id':str(document['_id'])} for document in pokeData.find().limit(int(limit)).skip(int(offset))]
   else: #return all pokemon
@@ -127,6 +128,7 @@ def get_type(type_name):
   else:
     return "Type: \"{}\" Not Found".format(type_name)
 
+WSGIRequestHandler.protocol_version = "HTTP/1.1"
 
 if __name__ == '__main__':
     app.run(debug=True)

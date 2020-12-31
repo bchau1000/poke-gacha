@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'widgets/pokedex-item.dart';
 import '../../bloc/pokedex-bloc.dart';
 import '../../models/pokemon.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Bring all the widgets together here to create a grid view widget
 class Pokedex extends StatefulWidget {
@@ -16,10 +17,12 @@ class Pokedex extends StatefulWidget {
 
 class PokedexState extends State<Pokedex> {
   List<Pokemon> allPokemon = [];
+  final searchController = TextEditingController();
+  String query = '';
 
   @override
   Widget build(BuildContext context) {
-    pokedexBloc.fetchPokemon('', allPokemon.length);
+    pokedexBloc.fetchPokemon(this.query, allPokemon.length);
 
     return StreamBuilder(
         stream: pokedexBloc.pokemon,
@@ -34,9 +37,35 @@ class PokedexState extends State<Pokedex> {
         });
   }
 
+  Icon subIcon = Icon(Icons.search);
+  Widget subSearchBar = Text('Pokédex');
+
   Widget buildPokedex() {
     return Scaffold(
-        appBar: AppBar(title: Text(widget.title)),
+        appBar: AppBar(title: subSearchBar, actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  if (this.subIcon.icon == Icons.search) {
+                    this.subIcon = Icon(Icons.clear);
+                    this.subSearchBar = TextField(
+                      controller: searchController,
+                      style: GoogleFonts.openSans(
+                          color: Colors.white, fontSize: 16),
+                      onSubmitted: (String str) {
+                        setState(() {
+                          this.query = str;
+                        });
+                      },
+                    );
+                  } else {
+                    this.subIcon = Icon(Icons.search);
+                    this.subSearchBar = Text('Pokédex');
+                  }
+                });
+              },
+              icon: subIcon)
+        ]),
         backgroundColor: Colors.grey[900],
         body: NotificationListener<ScrollNotification>(
           onNotification: (scrollNotification) {
@@ -62,5 +91,11 @@ class PokedexState extends State<Pokedex> {
             },
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 }

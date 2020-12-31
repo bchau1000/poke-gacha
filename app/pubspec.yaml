@@ -52,3 +52,4 @@ flutter:
   assets:
     - 'lib/src/assets/sprites/'
     - 'lib/src/assets/artwork/'
+    - 'lib/src/assets/logos/'

@@ -7,8 +7,8 @@ class PokeDB {
   String baseUrl = 'http://10.0.2.2:5000';
 
   Future<List<Pokemon>> fetchPokemon(String query, int offset) async {
-    final response =
-        await http.get(baseUrl + '/api/pokedex?offset=0&limit=897');
+    final response = await http
+        .get(baseUrl + '/api/pokedex?search=' + query + '&offset=0&limit=897');
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       List<Pokemon> allPokemon = new List<Pokemon>();

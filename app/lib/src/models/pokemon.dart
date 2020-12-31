@@ -4,6 +4,7 @@ class Pokemon {
 
   Pokemon(this.id, this.name);
   Pokemon.fromPokemon({this.id, this.name});
+
   // Grab file path for sprite
   // sprite formatted as pokemon_id.png
   get art {
