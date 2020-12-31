@@ -6,15 +6,10 @@ class Pokemon {
   String rarity;
 
   Pokemon(this.id, this.name);
-<<<<<<< HEAD
-  Pokemon.fromPokemon({this.id, this.name});
-
-=======
   Pokemon.shortPokemon(
       this.id, this.name, this.height, this.weight, this.rarity);
   Pokemon.fromPokemon(
       {this.id, this.name, this.height, this.weight, this.rarity});
->>>>>>> evoTab
   // Grab file path for sprite
   // sprite formatted as pokemon_id.png
   get art {

@@ -45,9 +45,6 @@ def get_all_pokemon():
           }
       }
       ]):
-<<<<<<< HEAD
-        output.append({'pokeName':document['pokeName'],'id':str(document['_id'])})
-=======
         output.append({'pokeName':document['pokeName'],
                         'id':document['_id'],
                         'height':str(document['height']),
@@ -55,7 +52,6 @@ def get_all_pokemon():
                         'rarity':str(document['rarity']),
                         'desc:':document['desc']
         })
->>>>>>> evoTab
   elif limit or offset:
    output = [{'pokeName':document['pokeName'],
                         'id':str(document['_id']),
