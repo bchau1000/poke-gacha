@@ -1,9 +1,15 @@
 class Pokemon {
   final String id;
   final String name;
+  String height;
+  String weight;
+  String rarity;
 
   Pokemon(this.id, this.name);
-  Pokemon.fromPokemon({this.id, this.name});
+  Pokemon.shortPokemon(
+      this.id, this.name, this.height, this.weight, this.rarity);
+  Pokemon.fromPokemon(
+      {this.id, this.name, this.height, this.weight, this.rarity});
   // Grab file path for sprite
   // sprite formatted as pokemon_id.png
   get art {
@@ -23,7 +29,20 @@ class Pokemon {
       return this.id;
   }
 
+  get heightLabel {
+    return this.height + " m";
+  }
+
+  get weightLabel {
+    return this.weight + " kg";
+  }
+
   factory Pokemon.fromJson(Map<String, dynamic> json) {
-    return Pokemon.fromPokemon(id: json['id'], name: json['pokeName']);
+    return Pokemon.fromPokemon(
+        id: json['id'],
+        name: json['pokeName'],
+        height: json['height'],
+        weight: json['weight'],
+        rarity: json['rarity']);
   }
 }
