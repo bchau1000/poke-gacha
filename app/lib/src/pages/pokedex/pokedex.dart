@@ -80,7 +80,7 @@ class PokedexState extends State<Pokedex> {
         ),
         // Call getPokemon for the list of widgets here
         itemBuilder: (BuildContext context, int index) {
-          return pokemonGridItem(context, allPokemon[index]);
+          return PokemonGridItem(pokemon: allPokemon[index]);
         },
       ),
     );

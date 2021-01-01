@@ -38,6 +38,8 @@ def get_all_pokemon():
         "$project":{#each field in the collection that has 1 will be returned in the iterable
           "_id":1,
           "pokeName":1,
+          "types": 1,
+          "stats": 1,
           'height':1,
           'weight':1,
           'rarity':1,
@@ -45,27 +47,35 @@ def get_all_pokemon():
           }
       }
       ]):
-        output.append({'pokeName':document['pokeName'],
-                        'id':document['_id'],
+        output.append({'name':document['pokeName'],
+                        'id': str(document['_id']),
+                        'types': document['types'],
+                        'stats': document['stats'],
                         'height':str(document['height']),
                         'weight':str(document['weight']),
                         'rarity':str(document['rarity']),
-                        'desc:':document['desc']
+                        'desc':str(document['desc']),
+                        
         })
   elif limit or offset:
-   output = [{'pokeName':document['pokeName'],
+   output = [{'name':document['pokeName'],
                         'id':str(document['_id']),
+                        'types': document['types'],
+                        'stats': document['stats'],
                         'height':str(document['height']),
                         'weight':str(document['weight']),
                         'rarity':str(document['rarity']),
-                        'desc:':document['desc']}
+                        'desc':str(document['desc'])}
                          for document in pokeData.find().limit(int(limit)).skip(int(offset))]
   else: #return all pokemon
-    output = [{'name':document['pokeName'], 'id':str(document['_id']),
-                        'height':str(document['height']),
-                        'weight':str(document['weight']),
-                        'rarity':str(document['rarity']),
-                        'desc:':document['desc']}
+    output = [{'name':document['pokeName'], 
+               'id':str(document['_id']),
+               'types': document['types'],
+               'stats': document['stats'],
+               'height':str(document['height']),
+               'weight':str(document['weight']),
+               'rarity':str(document['rarity']),
+               'desc':str(document['desc'])}
                          for document in pokeData.find()]
 
   if output:
