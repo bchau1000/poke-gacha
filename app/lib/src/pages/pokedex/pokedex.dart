@@ -17,12 +17,13 @@ class Pokedex extends StatefulWidget {
 
 class PokedexState extends State<Pokedex> {
   List<Pokemon> allPokemon = [];
+  int offset = 0;
   final searchController = TextEditingController();
   String query = '';
 
   @override
   Widget build(BuildContext context) {
-    pokedexBloc.fetchPokemon(this.query, allPokemon.length);
+    pokedexBloc.fetchPokemon(this.query, offset);
 
     return StreamBuilder(
         stream: pokedexBloc.pokemon,
@@ -42,55 +43,47 @@ class PokedexState extends State<Pokedex> {
 
   Widget buildPokedex() {
     return Scaffold(
-        appBar: AppBar(title: subSearchBar, actions: <Widget>[
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  if (this.subIcon.icon == Icons.search) {
-                    this.subIcon = Icon(Icons.clear);
-                    this.subSearchBar = TextField(
-                      controller: searchController,
-                      style: GoogleFonts.openSans(
-                          color: Colors.white, fontSize: 16),
-                      onSubmitted: (String str) {
-                        setState(() {
-                          this.query = str;
-                        });
-                      },
-                    );
-                  } else {
-                    this.subIcon = Icon(Icons.search);
-                    this.subSearchBar = Text('Pokédex');
-                  }
-                });
-              },
-              icon: subIcon)
-        ]),
-        backgroundColor: Colors.grey[900],
-        body: NotificationListener<ScrollNotification>(
-          onNotification: (scrollNotification) {
-            if (scrollNotification.metrics.pixels ==
-                scrollNotification.metrics.maxScrollExtent) {
-              setState(() {});
-            }
-            return true;
-          },
-          child: GridView.builder(
-            // primary: false -> makes the amount you can scroll relative to the content in the grid
-            primary: false,
-            itemCount: allPokemon.length,
-            padding: const EdgeInsets.all(8),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              crossAxisCount: 2,
-            ),
-            // Call getPokemon for the list of widgets here
-            itemBuilder: (BuildContext context, int index) {
-              return pokemonGridItem(context, allPokemon[index]);
+      appBar: AppBar(title: subSearchBar, actions: <Widget>[
+        IconButton(
+            onPressed: () {
+              setState(() {
+                if (this.subIcon.icon == Icons.search) {
+                  this.subIcon = Icon(Icons.clear);
+                  this.subSearchBar = TextField(
+                    controller: searchController,
+                    style:
+                        GoogleFonts.openSans(color: Colors.white, fontSize: 16),
+                    onSubmitted: (String str) {
+                      setState(() {
+                        this.query = str;
+                      });
+                    },
+                  );
+                } else {
+                  this.subIcon = Icon(Icons.search);
+                  this.subSearchBar = Text('Pokédex');
+                }
+              });
             },
-          ),
-        ));
+            icon: subIcon)
+      ]),
+      backgroundColor: Colors.grey[900],
+      body: GridView.builder(
+        // primary: false -> makes the amount you can scroll relative to the content in the grid
+        primary: false,
+        itemCount: allPokemon.length,
+        padding: const EdgeInsets.all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          crossAxisCount: 2,
+        ),
+        // Call getPokemon for the list of widgets here
+        itemBuilder: (BuildContext context, int index) {
+          return pokemonGridItem(context, allPokemon[index]);
+        },
+      ),
+    );
   }
 
   @override
@@ -99,3 +92,21 @@ class PokedexState extends State<Pokedex> {
     super.dispose();
   }
 }
+
+/*
+GridView.builder(
+        // primary: false -> makes the amount you can scroll relative to the content in the grid
+        primary: false,
+        itemCount: allPokemon.length,
+        padding: const EdgeInsets.all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          crossAxisCount: 2,
+        ),
+        // Call getPokemon for the list of widgets here
+        itemBuilder: (BuildContext context, int index) {
+          return pokemonGridItem(context, allPokemon[index]);
+        },
+      ),
+*/
